@@ -205,19 +205,8 @@ export class QdrantVectorStore implements VectorStore {
    * @param refDocId Node ID
    */
   async delete(refDocId: string): Promise<void> {
-    const mustFilter = [
-      {
-        key: "doc_id",
-        match: {
-          value: refDocId,
-        },
-      },
-    ];
-
     await this.db.delete(this.collectionName, {
-      filter: {
-        must: mustFilter,
-      },
+      points: [refDocId],
     });
   }
 
